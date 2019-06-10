@@ -1,20 +1,7 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import React, { Component } from 'react';
+import { StyleSheet, TextInput, View, Button, Text} from 'react-native';
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, TextInput, View, Button, Text} from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import ListItem from './components/ListItem/ListItem'
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -43,7 +30,7 @@ export default class App extends Component<Props> {
 
   render() {
     const placesOutPut = this.state.places.map((place, i) => (
-      <Text key={i}>{place}</Text>
+      <ListItem key={i} placeName={place} />
     ));
     return (
       <View style={styles.container}>
@@ -57,7 +44,7 @@ export default class App extends Component<Props> {
             style={styles.placeButton}
             onPress={this.placeSubmitHandler}/>
         </View>
-        <View>
+        <View style={styles.listContainer}>
           {placesOutPut}
         </View>
       </View>
@@ -86,5 +73,8 @@ const styles = StyleSheet.create({
   },
   placeButton: {
     width:"30%"
+  },
+  listContainer: {
+    width: "100%"
   }
 });
