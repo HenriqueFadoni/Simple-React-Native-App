@@ -28,7 +28,9 @@ export default class App extends Component<Props> {
         places: prevState.places.concat({
           key: Math.random().toString(),
           name: this.state.placeName,
-          image: placeImage
+          image: {
+            uri: "https://cdn.muenchen-p.de/.imaging/stk/responsive/galleryLarge/dms/sw/mde/frauenkirche-4000/document/frauenkirche-4000.jpg"
+          }
         })
       }
     });
