@@ -3,13 +3,14 @@ import { StyleSheet, View } from 'react-native';
 
 import InputForm from './components/InputForm/InputForm';
 import List from './components/List/List';
-import placeImage from './src/assets/beautiful-place.jpg'
+import Detail from './components/Detail/Detail';
 
 type Props = {};
 export default class App extends Component<Props> {
   state = {
     placeName: '',
-    places: []
+    places: [],
+    selectedPlace: null
   }
 
   placeNameChangedHandler = val => {
@@ -29,18 +30,35 @@ export default class App extends Component<Props> {
           key: Math.random().toString(),
           name: this.state.placeName,
           image: {
-            uri: "https://cdn.muenchen-p.de/.imaging/stk/responsive/galleryLarge/dms/sw/mde/frauenkirche-4000/document/frauenkirche-4000.jpg"
+            uri: "https://cdn.thecrazytourist.com/wp-content/uploads/2017/09/ccimage-shutterstock_566911099.jpg"
           }
         })
       }
     });
   }
 
-  placeDeletedHandler = key => {
+  placeDeletedHandler = () => {
     this.setState(prevState => {
       return {
         places: prevState.places.filter(place => {
-          return place.key !== key;
+          return place.key !== prevState.selectedPlace.key;
+        }),
+        selectedPlace: null
+      }
+    });
+  }
+
+  placeCloseHandler = () => {
+    this.setState({
+      selectedPlace: null
+    });
+  }
+
+  placeSelectedHandler = key => {
+    this.setState(prevState => {
+      return {
+        selectedPlace: prevState.places.find(place => {
+          return place.key === key;
         })
       }
     });
@@ -49,6 +67,11 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
+        <Detail
+          selectedPlace={this.state.selectedPlace}
+          onItemDeleted={this.placeDeletedHandler}
+          onModalClosed={this.placeCloseHandler}
+        />
         <InputForm
           value={this.state.placeName}
           changeTextHandler={this.placeNameChangedHandler}
@@ -56,7 +79,7 @@ export default class App extends Component<Props> {
         />
         <List
           places={this.state.places}
-          onItemDeleted={this.placeDeletedHandler} 
+          onItemSelected={this.placeSelectedHandler}
         />
       </View>
     );
