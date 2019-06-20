@@ -1,20 +1,43 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 
-const InputForm = props => (
-    <View style={styles.inputContainer}>
-        <TextInput
-            value={props.value}
-            onChangeText={props.changeTextHandler}
-            style={styles.placeInput} />
-        <Button
-            title="Add"
-            style={styles.placeButton}
-            onPress={props.submit} />
-    </View>
-);
+import {
+    deletePlace
+} from '../../store/actions/index';
 
-export default InputForm
+class InputForm extends Component {
+    state ={
+        placeName: ''
+    }
+
+    placeNameChangedHandler = val => this.setState({ placeName: val });
+
+    placeSubmitHandler = () => {
+        if (this.state.placeName.trim() === "") {
+            return;
+        }
+        this.props.onAddPlace(this.state.placeName);
+        this.setState({ placeName: '' });
+    }
+
+    placeDeletedHandler = () => this.props.onDeletePlace();
+
+    render() {
+        return (
+            <View style={styles.inputContainer}>
+                <TextInput
+                    value={this.state.placeName}
+                    onChangeText={this.placeNameChangedHandler}
+                    style={styles.placeInput} />
+                <Button
+                    title="Add"
+                    style={styles.placeButton}
+                    onPress={this.placeSubmitHandler} />
+            </View>
+        )
+    }
+}
 
 const styles = StyleSheet.create({
     inputContainer: {
@@ -32,3 +55,11 @@ const styles = StyleSheet.create({
         width: "30%"
     }
 });
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onDeletePlace: () => dispatch(deletePlace())
+    }
+}
+
+export default connect(null, mapDispatchToProps)(InputForm);

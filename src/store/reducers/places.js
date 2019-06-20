@@ -1,8 +1,6 @@
 import {
     ADD_PLACE,
     DELETE_PLACE,
-    SELECT_PLACE,
-    DESELECT_PLACE,
     NAME_PLACE
 } from '../actions/actionTypes';
 
@@ -42,22 +40,6 @@ const deletePlace = state => {
     };
 };
 
-const selectPlace = (state, action) => {
-    return {
-        ...state,
-        selectedPlace: state.placeArr.find(place => {
-            return place.key === action.placeKey;
-        })
-    };
-};
-
-const deselectPlace = state => {
-    return {
-        ...state,
-        selectedPlace: null
-    };
-};
-
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case NAME_PLACE:
@@ -66,10 +48,6 @@ const reducer = (state = initialState, action) => {
             return addPlace(state, action);
         case DELETE_PLACE:
             return deletePlace(state);
-        case SELECT_PLACE:
-            return selectPlace(state, action);
-        case DESELECT_PLACE:
-            return deselectPlace(state);
         default:
             return state;
     };
