@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import AuthScreen from "./src/screens/Auth/Auth";
 import SharePlaceScreen from "./src/screens/SharePlace/SharePlaces";
 import FindPlaceScreen from "./src/screens/FindPlace/FindPlace";
+import PlaceDetailScreen from './src/screens/Detail/Detail';
 import configureStore from './src/store/configureStore';
 
 const store = configureStore();
@@ -11,16 +12,24 @@ const store = configureStore();
 //Register Screens
 Navigation.registerComponent("awesome-places.AuthScreen",
   () => AuthScreen,
-  store, 
-  Provider);
+  store,
+  Provider
+);
 Navigation.registerComponent("awesome-places.SharePlaceScreen",
   () => SharePlaceScreen,
-  store, 
-  Provider);
+  store,
+  Provider
+);
 Navigation.registerComponent("awesome-places.FindPlaceScreen",
   () => FindPlaceScreen,
-  store, 
-  Provider);
+  store,
+  Provider
+);
+Navigation.registerComponent("awesome-places.PlaceDetailScreen",
+  () => PlaceDetailScreen,
+  store,
+  Provider
+);
 
 //Start App
 Navigation.startSingleScreenApp({

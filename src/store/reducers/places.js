@@ -30,11 +30,11 @@ const addPlace = (state, action) => {
     };
 };
 
-const deletePlace = state => {
+const deletePlace = (state, action) => {
     return {
         ...state,
         placeArr: state.placeArr.filter(place => {
-            return place.key !== state.selectedPlace.key;
+            return place.key !== action.placeKey
         }),
         selectedPlace: null
     };
@@ -47,7 +47,7 @@ const reducer = (state = initialState, action) => {
         case ADD_PLACE:
             return addPlace(state, action);
         case DELETE_PLACE:
-            return deletePlace(state);
+            return deletePlace(state, action);
         default:
             return state;
     };
