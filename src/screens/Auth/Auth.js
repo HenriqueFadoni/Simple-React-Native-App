@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { 
-    View, 
+import {
+    View,
     Button,
-    StyleSheet
+    StyleSheet,
+    ImageBackground
 } from 'react-native';
 
 import startMainTabs from '../MainTabs/startMainTabs';
@@ -10,25 +11,44 @@ import DefaultInput from '../../components/UI/DefaultInput/DefaultInput';
 import HeadingText from '../../components/UI/HeadingText/HeadingText';
 import MainText from '../../components/UI/MainText/MainText';
 
+import BackgroundImage from '../../assets/beautiful-place.jpg'
+
 class AuthScreen extends Component {
     loginHandler = () => {
         startMainTabs();
     }
 
-    render () {
+    render() {
         return (
-            <View style={style.container}>
-                <MainText>
-                    <HeadingText>Please, Log In</HeadingText>
-                </MainText>
-                <Button title="Switch to Login" />
-                <View style={style.inputContainer}>
-                    <DefaultInput placeholder="Your E-mail Address" style={style.input} />
-                    <DefaultInput placeholder="Password" style={style.input} />
-                    <DefaultInput placeholder="Confirm Password" style={style.input} />
+            <ImageBackground
+                source={BackgroundImage}
+                style={style.backgroundImg}
+            >
+                <View style={style.container}>
+                    <MainText>
+                        <HeadingText>Please, Log In</HeadingText>
+                    </MainText>
+                    <Button title="Switch to Login" />
+                    <View style={style.inputContainer}>
+                        <DefaultInput 
+                            placeholder="Your E-mail Address" 
+                            style={style.input}
+                        />
+                        <DefaultInput 
+                            placeholder="Password" 
+                            style={style.input}
+                        />
+                        <DefaultInput 
+                            placeholder="Confirm Password" 
+                            style={style.input}
+                        />
+                    </View>
+                    <Button 
+                        title="Login" 
+                        onPress={this.loginHandler}
+                    />
                 </View>
-                <Button title="Login" onPress={this.loginHandler}/>
-            </View>
+            </ImageBackground>
         );
     }
 }
@@ -39,13 +59,17 @@ const style = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
+    backgroundImg: {
+        width: "100%",
+        flex: 1
+    },
     inputContainer: {
         width: "80%",
         margin: 10
     },
     input: {
-        backgroundColor:"#eee",
-        borderColor:"#bbb"
+        backgroundColor: "#eee",
+        borderColor: "#bbb"
     }
 });
 
