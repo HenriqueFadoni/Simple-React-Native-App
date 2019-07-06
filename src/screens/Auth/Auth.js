@@ -10,6 +10,7 @@ import startMainTabs from '../MainTabs/startMainTabs';
 import DefaultInput from '../../components/UI/DefaultInput/DefaultInput';
 import HeadingText from '../../components/UI/HeadingText/HeadingText';
 import MainText from '../../components/UI/MainText/MainText';
+import ButtonWithBackground from '../../components/UI/ButtonWithBackground/ButtonWithBackground';
 
 import BackgroundImage from '../../assets/beautiful-place.jpg'
 
@@ -21,6 +22,7 @@ class AuthScreen extends Component {
     render() {
         return (
             <ImageBackground
+                imageStyle={{opacity: 0.65}}
                 source={BackgroundImage}
                 style={style.backgroundImg}
             >
@@ -28,25 +30,32 @@ class AuthScreen extends Component {
                     <MainText>
                         <HeadingText>Please, Log In</HeadingText>
                     </MainText>
-                    <Button title="Switch to Login" />
+                    <ButtonWithBackground
+                        color="black"
+                        onPress={() => alert("Hello")}
+                    >
+                        Switch To Login
+                    </ButtonWithBackground>
                     <View style={style.inputContainer}>
-                        <DefaultInput 
-                            placeholder="Your E-mail Address" 
+                        <DefaultInput
+                            placeholder="Your E-mail Address"
                             style={style.input}
                         />
-                        <DefaultInput 
-                            placeholder="Password" 
+                        <DefaultInput
+                            placeholder="Password"
                             style={style.input}
                         />
-                        <DefaultInput 
-                            placeholder="Confirm Password" 
+                        <DefaultInput
+                            placeholder="Confirm Password"
                             style={style.input}
                         />
                     </View>
-                    <Button 
-                        title="Login" 
+                    <ButtonWithBackground
+                        color="black"
                         onPress={this.loginHandler}
-                    />
+                    >
+                        Submit
+                    </ButtonWithBackground>
                 </View>
             </ImageBackground>
         );
