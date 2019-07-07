@@ -3,7 +3,8 @@ import {
     View,
     Button,
     StyleSheet,
-    ImageBackground
+    ImageBackground,
+    Dimensions
 } from 'react-native';
 
 import startMainTabs from '../MainTabs/startMainTabs';
@@ -15,21 +16,47 @@ import ButtonWithBackground from '../../components/UI/ButtonWithBackground/Butto
 import BackgroundImage from '../../assets/beautiful-place.jpg'
 
 class AuthScreen extends Component {
+    state = {
+        respStyles: {
+            pwContainerDirection: "column",
+            pwContainerJustifyContent: "flex-start",
+            pwWrapperWidth: "100%"
+        }
+    };
+
+    constructor(props) {
+        super(props);
+        Dimensions.addEventListener("change", dims => {
+            this.setState({
+                pwContainerDirection: Dimensions.get('window').height > 500 ? "column" : "row",
+                pwContainerJustifyContent: Dimensions.get('window').height > 500 ? "flex-start" : "space-between",
+                pwWrapperWidth: Dimensions.get('window').height > 500 ? "100%" : "45%"
+            });
+        });
+    }
+
     loginHandler = () => {
         startMainTabs();
     }
 
     render() {
+        let headingText = null;
+
+        if (Dimensions.get('window').height > 500) {
+            headingText = (
+                <MainText>
+                    <HeadingText>Please, Log In</HeadingText>
+                </MainText>
+            );
+        }
         return (
             <ImageBackground
-                imageStyle={{opacity: 0.65}}
+                imageStyle={{ opacity: 0.65 }}
                 source={BackgroundImage}
                 style={style.backgroundImg}
             >
                 <View style={style.container}>
-                    <MainText>
-                        <HeadingText>Please, Log In</HeadingText>
-                    </MainText>
+                    {headingText}
                     <ButtonWithBackground
                         color="black"
                         onPress={() => alert("Hello")}
@@ -41,14 +68,27 @@ class AuthScreen extends Component {
                             placeholder="Your E-mail Address"
                             style={style.input}
                         />
-                        <DefaultInput
-                            placeholder="Password"
-                            style={style.input}
-                        />
-                        <DefaultInput
-                            placeholder="Confirm Password"
-                            style={style.input}
-                        />
+                        <View style={{
+                            flexDirection: this.state.respStyles.pwContainerDirection,
+                            justifyContent: this.state.respStyles.pwContainerJustifyContent
+                        }}>
+                            <View style={{
+                                width: this.state.respStyles.pwWrapperWidth
+                            }}>
+                                <DefaultInput
+                                    placeholder="Password"
+                                    style={style.input}
+                                />
+                            </View>
+                            <View style={{
+                                width: this.state.respStyles.pwWrapperWidth
+                            }}>
+                                <DefaultInput
+                                    placeholder="Confirm Password"
+                                    style={style.input}
+                                />
+                            </View>
+                        </View>
                     </View>
                     <ButtonWithBackground
                         color="black"
@@ -79,6 +119,13 @@ const style = StyleSheet.create({
     input: {
         backgroundColor: "#eee",
         borderColor: "#bbb"
+    },
+    passwordContainer: {
+        flexDirection: Dimensions.get('window').height > 500 ? "column" : "row",
+        justifyContent: "space-between"
+    },
+    passwordWrapper: {
+        width: Dimensions.get('window').height > 500 ? "100%" : "45%"
     }
 });
 
