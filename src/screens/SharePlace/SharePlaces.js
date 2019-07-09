@@ -16,9 +16,14 @@ import HeadingText from '../../components/UI/HeadingText/HeadingText';
 
 
 class SharePlaceScreen extends Component {
+    static navigatorStyle = {
+        navBarButtonColor: "blue"
+    }
+
     state = {
         placeName: ''
     }
+
     constructor(props) {
         super(props);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
