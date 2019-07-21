@@ -4,8 +4,16 @@ import { TextInput, StyleSheet } from 'react-native';
 const defaultInput = props => (
     <TextInput
         underlineColorAndroid="transparent"
-        {...props} 
-        style={[style.input, props.style]}
+        {...props}
+        style={
+            [
+                style.input,
+                props.style,
+                !props.valid && props.touched 
+                    ? style.invalid 
+                    : null
+            ]
+        }
     />
 );
 
@@ -17,6 +25,10 @@ const style = StyleSheet.create({
         padding: 5,
         marginTop: 8,
         marginBottom: 8
+    },
+    invalid: {
+        backgroundColor: '#f9c0c0',
+        borderColor: "red"
     }
 });
 
