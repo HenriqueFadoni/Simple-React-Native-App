@@ -8,6 +8,8 @@ const validate = (val, rules, connectedValue) => {
             case 'minLength':
                 isValid = isValid && minLengthValidator(val, rules[rule]);
                 break;
+            case 'notEmpty':
+                isValid = isValid && equalToValidator(val, connectedValue[rule]);
             case 'equalTo':
                 isValid = isValid && equalToValidator(val, connectedValue[rule]);
                 break;
@@ -29,5 +31,9 @@ const minLengthValidator = (val, minLength) => {
 const equalToValidator = (val, checkValue) => {
     return val === checkValue
 };
+
+const notEmptyValidator = val => {
+    return val.trim() !== '';
+}
 
 export default validate;
