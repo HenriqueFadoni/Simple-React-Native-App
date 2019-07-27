@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { 
+import {
     View,
-    Button, 
+    Button,
     StyleSheet,
     Dimensions
 } from 'react-native';
@@ -13,7 +13,7 @@ class PickLocation extends Component {
             latitude: 37.7900352,
             longitude: -122.4013726,
             latitudeDelta: 0.0122,
-            longitudeDelta: 
+            longitudeDelta:
                 Dimensions.get("window").width /
                 Dimensions.get("window").height * 0.0122
         },
@@ -44,13 +44,24 @@ class PickLocation extends Component {
         });
     }
 
+    //Fetching User Location
     getLocationHandler = () => {
         navigator.geolocation.getCurrentPosition(
             response => {
+                const coordsEvent = {
+                    nativeEvent: {
+                        coordinate: {
+                            latitude: response.coords.latitude,
+                            longitude: response.coords.longitude
+                        }
+                    }
+                };
 
+                this.pickLocationHandler(coordsEvent);
             },
             error => {
-
+                console.log(error);
+                alert("Fetching the user position failed. Please, select one manually.");
             }
         );
     }
@@ -65,7 +76,7 @@ class PickLocation extends Component {
 
         return (
             <View style={styles.container}>
-                <MapView 
+                <MapView
                     initialRegion={this.state.focusedLocation}
                     style={styles.map}
                     onPress={this.pickLocationHandler}
@@ -74,9 +85,9 @@ class PickLocation extends Component {
                     {marker}
                 </MapView>
                 <View style={styles.button}>
-                    <Button 
-                        title="Locate Me" 
-                        onPress={() => alert('Pick Location')}    
+                    <Button
+                        title="Locate Me"
+                        onPress={this.getLocationHandler}
                     />
                 </View>
             </View>
