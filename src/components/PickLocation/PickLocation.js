@@ -20,8 +20,18 @@ class PickLocation extends Component {
         locationChosen: false
     }
 
+    //Handling Different Inputs on MapView
     pickLocationHandler = event => {
         const coords = event.nativeEvent.coordinate;
+
+        //Creating Map Animation 
+        this.map.animateToRegion({
+            ...this.state.focusedLocation,
+            latitude: coords.latitude,
+            longitude: coords.longitude
+        });
+
+        //Saving New Location Input
         this.setState(prevState => {
             return {
                 focusedLocation: {
@@ -34,9 +44,21 @@ class PickLocation extends Component {
         });
     }
 
+    getLocationHandler = () => {
+        navigator.geolocation.getCurrentPosition(
+            response => {
+
+            },
+            error => {
+
+            }
+        );
+    }
+
     render() {
         let marker = null;
 
+        //Tracking the New Location Chosen
         if (this.state.locationChosen) {
             marker = <MapView.Marker coordinate={this.state.focusedLocation} />
         }
@@ -45,9 +67,9 @@ class PickLocation extends Component {
             <View style={styles.container}>
                 <MapView 
                     initialRegion={this.state.focusedLocation}
-                    region={this.state.focusedLocation}
                     style={styles.map}
                     onPress={this.pickLocationHandler}
+                    ref={ref => this.map = ref}
                 >
                     {marker}
                 </MapView>
