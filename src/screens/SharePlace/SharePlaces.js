@@ -22,12 +22,15 @@ class SharePlaceScreen extends Component {
     }
 
     state = {
-        placeName: {
-            value: "",
-            valid: false,
-            touched: false,
-            validationRules: {
-                notEmpty: true
+        controls: {
+            placeName: {
+                value: "",
+                valid: false,
+                touched: false,
+                validationRules: {
+                    notEmpty: true
+                },
+                touched: false
             }
         }
     }
