@@ -42,6 +42,12 @@ class PickLocation extends Component {
                 locationChosen: true
             };
         });
+
+        //Passing Location to SharePlaces
+        this.props.onLocationPick({
+            latitude: coords.latitude,
+            longitude: coords.longitude
+        });
     }
 
     //Fetching User Location

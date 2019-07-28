@@ -25,7 +25,8 @@ const addPlace = (state, action) => {
             name: action.placeName,
             image: {
                 uri: "https://cdn.thecrazytourist.com/wp-content/uploads/2017/09/ccimage-shutterstock_566911099.jpg"
-            }
+            },
+            location: action.location
         })
     };
 };

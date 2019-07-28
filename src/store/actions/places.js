@@ -4,12 +4,13 @@ import {
     DELETE_PLACE
 } from './actionTypes';
 
-export const namePlace = name => {
+export const namePlace = (name, location) => {
     return {
         type: NAME_PLACE,
-        placeName: name
-    }
-}
+        placeName: name,
+        location,
+    };
+};
 
 export const addPlace = placeName => {
     return {
