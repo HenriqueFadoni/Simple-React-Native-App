@@ -10,13 +10,6 @@ const initialState = {
     selectedPlace: null
 };
 
-const namePlace = (state, action) => {
-    return {
-        ...state,
-        placeName: action.placeName
-    }
-}
-
 const addPlace = (state, action) => {
     return {
         ...state,
@@ -43,8 +36,6 @@ const deletePlace = (state, action) => {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case NAME_PLACE:
-            return namePlace(state, action);
         case ADD_PLACE:
             return addPlace(state, action);
         case DELETE_PLACE:

@@ -31,6 +31,10 @@ class SharePlaceScreen extends Component {
                     notEmpty: true
                 },
                 touched: false
+            },
+            location: {
+                value: null,
+                valid: false
             }
         }
     }
@@ -65,10 +69,6 @@ class SharePlaceScreen extends Component {
                             prevState.controls.placeName.validationRules
                         ),
                         touched: true
-                    },
-                    location: {
-                        value: null,
-                        valid: false
                     }
                 }
             }
